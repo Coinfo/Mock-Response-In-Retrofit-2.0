@@ -11,11 +11,11 @@
     tools:context="com.vavian.mockretrofitrequests.ui.activities.MainActivity">
 
     <Button
+        android:id="@+id/buttonGetTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Teacher"
-        android:id="@+id/buttonGetTeacher"
-        android:layout_centerVertical="true"
+        android:layout_alignParentStart="false"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentStart="false"/>
+        android:layout_centerVertical="true"
+        android:text="Get Teacher"/>
 </RelativeLayout>
