@@ -16,19 +16,18 @@
 
 package com.vavian.mockretrofitrequests.rest.service;
 
-import android.os.Build;
 import android.util.Log;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Protocol;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
 import com.vavian.mockretrofitrequests.BuildConfig;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.Collections;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Protocol;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  *
@@ -44,24 +43,23 @@ public class FakeInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response response = null;
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "---- DEBUG --- DEBUG -- DEBUG - DEBUG -- DEBUG --- DEBUG ----");
             Log.d(TAG, "----                FAKE SERVER RESPONSES                ----");
             String responseString;
+
             // Get Request URI.
-            final URI uri = chain.request().uri();
-            Log.d(TAG, "---- Request URL: " + uri.toString());
+            final HttpUrl url = chain.request().url();
+            Log.d(TAG, "---- Request URL: " + url.toString());
             // Get Query String.
-            final String query = uri.getQuery();
+            final String query = url.query();
             // Parse the Query String.
             final String[] parsedQuery = query.split("=");
-            if(parsedQuery[0].equalsIgnoreCase("id") && parsedQuery[1].equalsIgnoreCase("1")) {
+            if (parsedQuery[0].equalsIgnoreCase("id") && parsedQuery[1].equalsIgnoreCase("1")) {
                 responseString = TEACHER_ID_1;
-            }
-            else if(parsedQuery[0].equalsIgnoreCase("id") && parsedQuery[1].equalsIgnoreCase("2")){
+            } else if (parsedQuery[0].equalsIgnoreCase("id") && parsedQuery[1].equalsIgnoreCase("2")) {
                 responseString = TEACHER_ID_2;
-            }
-            else {
+            } else {
                 responseString = "";
             }
 
@@ -75,8 +73,7 @@ public class FakeInterceptor implements Interceptor {
                     .build();
 
             Log.d(TAG, "---- DEBUG --- DEBUG -- DEBUG - DEBUG -- DEBUG --- DEBUG ----");
-        }
-        else {
+        } else {
             response = chain.proceed(chain.request());
         }
 
