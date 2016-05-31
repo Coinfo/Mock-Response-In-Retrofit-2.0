@@ -28,13 +28,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
     }
 
     @OnClick(R.id.buttonGetTeacher)
     public void getTeacher(View view) {
 
-        Call<Teacher> teacherCall = RestClient.getClient().getTeacherById("1");
+        Call<Teacher> teacherCall = RestClient.getClient().getTeacherById("2");
         teacherCall.enqueue(new Callback<Teacher>() {
             @Override
             public void onResponse(Call<Teacher> call, Response<Teacher> response) {
